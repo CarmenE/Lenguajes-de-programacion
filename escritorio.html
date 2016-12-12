@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<!--
+	Read Only by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Area de trabajo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link rel="stylesheet" href="css/animate.css">
+
+	<style>
+		#drop_zone {
+		    background-color: #EEE; 
+		    border: #999 5px dashed;
+		    width: 290px; 
+		    height: 200px;
+		   	 padding: 8px;
+		    font-size: 18px;
+		}
+		</style>
+		<script>
+
+		function drag_drop(event) {
+		    event.preventDefault();
+		    alert(event.dataTransfer.files[0]);
+		    alert(event.dataTransfer.files[0].name);
+		    alert(event.dataTransfer.files[0].size+" bytes");
+		    /*  This is where to begin uploading the file with Ajax and upload progress bar to PHP script */
+		    /*   https://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP */	   
+		}
+
+		function _(el){
+			return document.getElementById(el);
+		}
+		function uploadFile(){
+			var file = _("file1").files[0];
+			//lol lol lol
+			// alert(file.name+" | "+file.size+" | "+file.type);
+			var formdata = new FormData();
+			formdata.append("file1", file);
+			var ajax = new XMLHttpRequest();
+			ajax.upload.addEventListener("progress", progressHandler, false);
+			ajax.addEventListener("load", completeHandler, false);
+			ajax.addEventListener("error", errorHandler, false);
+			ajax.addEventListener("abort", abortHandler, false);
+			ajax.open("POST", "subirArchivo.php");
+			ajax.send(formdata);
+		}
+		function progressHandler(event){
+			_("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
+			var percent = (event.loaded / event.total) * 100;
+			_("progressBar").value = Math.round(percent);
+			_("status").innerHTML = Math.round(percent)+"% uploaded... please wait";
+		}
+		function completeHandler(event){
+			_("status").innerHTML = event.target.responseText;
+			_("progressBar").value = 0;
+		}
+		function errorHandler(event){
+			_("status").innerHTML = "Upload Failed";
+		}
+		function abortHandler(event){
+			_("status").innerHTML = "Upload Aborted";
+		}
+		</script>			
+	
+	</head>
+	<body>
+
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<span class="image avatar"><img src="images/avatar2.jpg" alt="" /></span>
+					<h1 id="logo"><a href="#">Instituto Tecnologico de Tijuana</a></h1>
+					<p>"Por una Juventud Integrada al Desarrollo de Mexico"</p>
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html" class="active">Home</a></li>
+					</ul>
+				</nav>
+				
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one">
+								<div class="container">
+									<header class="major">
+										<h2>Bienvenido!!</h2>
+								</div>
+							</section>
+							<table>
+							<td>
+								<!-- One -->
+							<section id="two">
+								<div class="container">
+									<form id="upload_form" enctype="multipart/form-data" method="post">
+									  <input type="file" name="file1" id="file1"><br>
+									  <input type="button" value="Subir Archivo" onclick="uploadFile()">
+									  <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+									  <h3 id="status"></h3>
+									  <p id="loaded_n_total"></p>
+									</form>
+									 
+								</div>
+							</section>
+							</td>
+							<td style="backcolor:red;">
+								
+							</td>
+						</table>
+
+						<div>
+									<p>Tus Documentos</p>
+									<div class="container">
+									<p>
+									<a href="test/1.pdf">Metodologia de análisis y vulnerabilidades de redes.pdf</a>
+									</p>
+									<p>
+									<a href="test/2.pdf">Pobreza,socializacion y Movilidad Social.pdf</a>
+									</p>
+									<p>
+									<a href="test/3.pdf">Seguridad en redes.pdf</a>
+									</p>
+									<p>
+									<a href="test/4.pdf">Principales Tipos de Investigacion.pdf</a>
+									</p>
+									<p>
+									<a href="test/5.pdf">Conmutacion y enrutamiento de datos.pdf</a>
+									</p>
+									<p>
+									<a href="test/6.pdf">Importancia de sql Injection.pdf</a>
+									</p>
+									<p>
+									<a href="test/7.pdf">Estrategias de programacion Logica.pdf</a>
+									</p>
+									<p>
+									<a href="test/8.pdf">Sistemas programables bajo estandar hc045.pdf</a>
+									</p>
+									<p>
+									<a href="test/9.pdf">Programacion Logica.pdf</a>
+									</p>
+									<p>
+									<a href="test/10.pdf">Proyecto Repositorio.pdf</a>
+									</p>
+									</div>
+								</div>
+						
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollzer.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
